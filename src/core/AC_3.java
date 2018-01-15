@@ -21,7 +21,9 @@ public class AC_3 {
         Graph copyGraph = graph.kopiere();
         Knot cv = null;
         //Hier ist ein Knoten schon veraender(annahme getroffen)
-        if(ac_3(createQ(cv,copyGraph),copyGraph))
+        if(ac_3(createQ(cv,copyGraph),copyGraph)){
+
+        }
         return result;
     }
     public static boolean ac_3(ArrayList<Constraint> q, Graph graph){
