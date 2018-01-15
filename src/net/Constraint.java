@@ -35,16 +35,19 @@ public class Constraint {
 
     private Boolean rechterNachbar(int firstValue, int secondValue) {
         Boolean result = false;
+        result = (firstValue-secondValue)==1;
         return result;
     }
 
     private Boolean linkerNachbar(int firstValue, int secondValue) {
         Boolean result = false;
+        result = (firstValue-secondValue)==-1;
         return result;
     }
 
     private Boolean nachbar(int firstValue, int secondValue) {
         Boolean result = false;
+        result = linkerNachbar(firstValue,secondValue)||rechterNachbar(firstValue,secondValue);
         return result;
     }
 
@@ -55,6 +58,7 @@ public class Constraint {
 
     private Boolean gleich(int firstValue, int secondValue) {
         Boolean result = false;
+        result= firstValue==secondValue;
         return result;
     }
 
