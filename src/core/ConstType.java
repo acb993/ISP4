@@ -5,6 +5,6 @@ public enum ConstType {
     NACHBAR,
     LINKERNACHBAR,
     RECHTERNACHBAR,
-    UNAER
+    UNGLEICH
 
 }

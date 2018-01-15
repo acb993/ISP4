@@ -5,8 +5,11 @@ import java.util.List;
 
 public class Knot {
     private ArrayList<Integer> wertebereich;
+    private String name;
 
-    public Knot(ArrayList<Integer> werte){
+    public Knot(ArrayList<Integer> werte, String name)
+    {
+        this.name = name;
         wertebereich = werte;
     }
 
@@ -20,5 +23,13 @@ public class Knot {
     public void annahme(Integer value){
         wertebereich.clear();
         wertebereich.add(value);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
