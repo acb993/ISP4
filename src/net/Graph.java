@@ -63,6 +63,10 @@ public class Graph {
         return kanten;
     }
 
+    public ArrayList<Knot> getKnoten() {
+        return knoten;
+    }
+
     public void removeConstraint(Constraint constraint){
         kanten.remove(constraint);
     }

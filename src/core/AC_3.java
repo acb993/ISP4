@@ -1,9 +1,6 @@
 package core;
 
-import net.Constraint;
-import net.Graph;
-import net.Knot;
-import net.UnaerConstraint;
+import net.*;
 
 import java.util.ArrayList;
 
@@ -13,16 +10,22 @@ public class AC_3 {
         ArrayList<Graph> result = new ArrayList<>();
         graph = removeUnaerConstraint(graph);
 
-
+        if(ac_3(graph.getConstraints(),graph)){
+            result.addAll(solveAlgo(graph));
+        }
         return result;
     }
-
+// rekursive methodee
     public static ArrayList<Graph> solveAlgo(Graph graph){
         ArrayList<Graph> result = new ArrayList<>();
-
+        Graph copyGraph = graph.kopiere();
+        Knot cv = null;
+        //Hier ist ein Knoten schon veraender(annahme getroffen)
+        if(ac_3(createQ(cv,copyGraph),copyGraph))
         return result;
     }
-    public static boolean ac_3(Knot veraendert, Graph graph){
+    public static boolean ac_3(ArrayList<Constraint> q, Graph graph){
+ //       ArrayList<Constraint>
         return false;
     }
 
@@ -41,7 +44,20 @@ public class AC_3 {
                 graph.removeConstraint(constraint);
                 }
         }
-
         return graph;
+    }
+
+    private static ArrayList<Constraint> createQ(Knot cv,Graph graph){
+        ArrayList<Constraint> result = new ArrayList<>();
+        BinaerConstraint constr = null;
+        for (Constraint constraint: graph.getConstraints()) {
+            if(constraint instanceof BinaerConstraint){
+                constr = (BinaerConstraint) constraint;
+                if(constr.getRechterWert().equals(cv)){
+                    result.add(constr);
+                }
+            }
+        }
+        return result;
     }
 }
