@@ -1,6 +1,7 @@
 package net;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Knot {
@@ -35,5 +36,12 @@ public class Knot {
 
     public boolean hasAnnahme(){
         return wertebereich.size()==1;
+    }
+
+    public String toString(){
+    String result = name + ":" + Arrays.toString(wertebereich.toArray())+" ";
+
+
+    return result;
     }
 }

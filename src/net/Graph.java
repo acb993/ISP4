@@ -108,4 +108,14 @@ public class Graph {
         }
         return between;
     }
+
+    public  String toString(){
+        String result = new String();
+        result += "{ ";
+        for (Knot knote: knoten) {
+            result += knote.toString();
+        }
+        result += " }";
+        return result;
+    }
 }

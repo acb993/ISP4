@@ -73,7 +73,7 @@ public class BinaerConstraint extends Constraint {
         ArrayList<Constraint> result = new ArrayList<>();
         for (Knot knot1 : knoten) {
             for (Knot knot2 : knoten) {
-                if (knot1.equals(knot2)) {
+                if (!(knot1.equals(knot2))) {
                     result.add(new BinaerConstraint(knot1, knot2, ConstType.UNGLEICH));
                 }
             }
@@ -89,5 +89,9 @@ public class BinaerConstraint extends Constraint {
     }
     public ConstType getType() {
         return type;
+    }
+
+    public String toString(){
+        return linkerWert+"->"+rechterWert+":"+type;
     }
 }

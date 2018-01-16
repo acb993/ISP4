@@ -14,28 +14,32 @@ public class AC_3 {
     public static ArrayList<Graph> solve(Graph graph) {
         ArrayList<Graph> result = new ArrayList<>();
         graph = removeUnaerConstraint(graph);
-
+        System.out.println(graph);
         if (ac_3(graph.getConstraints(), graph)) {
-            result.addAll(solveAlgo(graph));
+            result.addAll(solveAlgo(graph,""));
         }
         return result;
     }
 
     // rekursive methodee
-    public static ArrayList<Graph> solveAlgo(Graph graph) {
+    public static ArrayList<Graph> solveAlgo(Graph graph,String weg) {
         ArrayList<Graph> result = new ArrayList<>();
 
-        Knot elmo = getNextKnot(graph);
-        if (elmo.equals(null)) {
+        Knot nextKnot = getNextKnot(graph);
+        if (nextKnot==null) {
             result.add(graph);
+            System.out.println("CONSISTEN ->" + weg);
         } else {
-            for (Integer annahme : elmo.getWertebereich()) {
+            for (Integer annahme : nextKnot.getWertebereich()) {
                 Graph copyGraph = graph.kopiere();
-                Knot cv = copyGraph.getKnot(elmo.getName());
+                Knot cv = copyGraph.getKnot(nextKnot.getName());
                 cv.annahme(annahme);
                 if (ac_3(createQ(cv, copyGraph), copyGraph)) {
-                    result.addAll(solveAlgo(copyGraph));
+                    result.addAll(solveAlgo(copyGraph, weg+ "->" + cv ));
+                }else {
+ //                   System.out.println("NONCONSISTEN ->" + weg + "->" +cv);
                 }
+
             }
         }
         return result;
@@ -51,14 +55,15 @@ public class AC_3 {
             Knot vk = constraint.getLinkerWert();
             Knot vm = constraint.getRechterWert();
             if (revise(vk, vm, graph)) {
-                ArrayList<Constraint> elmo_2 = union(graph.getKantenFromKnot(vk), q);
-                for (Constraint con : elmo_2) {
+                ArrayList<Constraint> unionGraph = union(graph.getKantenFromKnot(vk), q);
+                ArrayList<Constraint> cleanList = new ArrayList<>();
+                for (Constraint con : unionGraph) {
                     BinaerConstraint con2 = (BinaerConstraint) con;
-                    if (con2.getLinkerWert().equals(vk) || con2.getLinkerWert().equals(vm)) {
-                        elmo_2.remove(con);
+                    if (!(con2.getLinkerWert().equals(vk) || con2.getLinkerWert().equals(vm))) {
+                        cleanList.add(con);
                     }
                 }
-                q = elmo_2;
+                q = cleanList;
                 consistent = vk.getWertebereich().size() > 0;
             }
 
@@ -67,6 +72,7 @@ public class AC_3 {
     }
 
     public static boolean revise(Knot vi, Knot vj, Graph graph) {
+        ArrayList<Integer> toBeDeleted = new ArrayList<>();
         Boolean delete = false;
         Boolean consistent = false;
         for (Integer x : vi.getWertebereich()) {
@@ -77,24 +83,33 @@ public class AC_3 {
                 }
             }
             if (!consistent) {
-                vi.removeValue(x);
+                toBeDeleted.add(x);
                 delete = true;
             }
+        }
+
+        for (Integer x : toBeDeleted) {
+            vi.removeValue(x);
         }
 
         return delete;
     }
 
     public static Graph removeUnaerConstraint(Graph graph) {
+        ArrayList<Constraint> toBeRemoved = new ArrayList<>();
         UnaerConstraint unaerConstraint = null;
         Knot knoten = null;
+
         for (Constraint constraint : graph.getConstraints()) {
             if (constraint instanceof UnaerConstraint) {
                 unaerConstraint = (UnaerConstraint) constraint;
                 knoten = unaerConstraint.getKnoten();
                 knoten.annahme(unaerConstraint.getWert());
-                graph.removeConstraint(constraint);
+                toBeRemoved.add(constraint);
             }
+        }
+        for (Constraint constraint : toBeRemoved) {
+            graph.removeConstraint(constraint);
         }
         return graph;
     }
@@ -121,7 +136,7 @@ public class AC_3 {
 
         for (Knot knot : knoten) {
             if (knot.getWertebereich().size() > 1) {
-                if (result.equals(null)) {
+                if (result == null) {
                     result = knot;
                 } else if (knot.getWertebereich().size() < result.getWertebereich().size()) {
                     result = knot;
