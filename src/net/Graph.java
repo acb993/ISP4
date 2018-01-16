@@ -32,11 +32,11 @@ public class Graph {
                 knotenRechts = result.getKnot(nameRechts);
                 result.addConstraint(new BinaerConstraint(knotenLinks, knotenRechts, constraint.getType()));
             }
-            if (kante instanceof UnaerConstraint){
+            if (kante instanceof UnaerConstraint) {
                 UnaerConstraint constraint = (UnaerConstraint) kante;
                 nameLinks = constraint.getKnoten().getName();
                 knotenLinks = result.getKnot(nameLinks);
-                result.addConstraint(new UnaerConstraint(knotenLinks,constraint.getType(),constraint.getWert()));
+                result.addConstraint(new UnaerConstraint(knotenLinks, constraint.getType(), constraint.getWert()));
             }
         }
         return result;
@@ -67,7 +67,45 @@ public class Graph {
         return knoten;
     }
 
-    public void removeConstraint(Constraint constraint){
+    public void removeConstraint(Constraint constraint) {
         kanten.remove(constraint);
+    }
+
+    public ArrayList<Constraint> getKantenFromKnot(Knot knot) {
+        ArrayList<Constraint> result = new ArrayList<>();
+        for (Constraint con : kanten) {
+            if (con instanceof BinaerConstraint) {
+                if (((BinaerConstraint) con).getRechterWert().equals(knot)) {
+                    result.add(con);
+                }
+            }
+        }
+        return result;
+    }
+
+    public boolean consistent(Knot vi, Integer x, Knot vj, Integer y){
+        ArrayList<Constraint> constraints = getAllConstraintBetween(vi,vj);
+        BinaerConstraint bincon = null;
+        Boolean consistent = true;
+        for (Constraint cons : constraints){
+            bincon = (BinaerConstraint) cons;
+            if(!bincon.check(x,y)){
+                return false;
+            }
+        }
+
+        return consistent;
+    }
+
+    public ArrayList<Constraint> getAllConstraintBetween(Knot vi, Knot vj) {
+        ArrayList<Constraint> between = new ArrayList<>();
+        BinaerConstraint con2 = null;
+        for (Constraint con : kanten) {
+            con2 = (BinaerConstraint) con;
+            if (con2.getLinkerWert().equals(vi) && con2.getRechterWert().equals(vj)) {
+                between.add(con);
+            }
+        }
+        return between;
     }
 }

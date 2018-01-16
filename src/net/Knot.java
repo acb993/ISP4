@@ -32,4 +32,8 @@ public class Knot {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean hasAnnahme(){
+        return wertebereich.size()==1;
+    }
 }
