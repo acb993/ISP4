@@ -68,7 +68,7 @@ public class Einstein_Raetsel {
 
         graph.addConstraint(new BinaerConstraint(graph.getKnot("Gruen"), graph.getKnot("Weiss"), ConstType.LINKERNACHBAR));
 //Hier die andere Richtung!
-        graph.addConstraint(new BinaerConstraint(graph.getKnot("Englisch"), graph.getKnot("Rot"), ConstType.GLEICH));
+/*        graph.addConstraint(new BinaerConstraint(graph.getKnot("Englisch"), graph.getKnot("Rot"), ConstType.GLEICH));
         graph.addConstraint(new BinaerConstraint(graph.getKnot("Hund"), graph.getKnot("Schwedisch"), ConstType.GLEICH));
         graph.addConstraint(new BinaerConstraint(graph.getKnot("Kaffee"), graph.getKnot("Gruen"), ConstType.GLEICH));
         graph.addConstraint(new BinaerConstraint(graph.getKnot("Tee"), graph.getKnot("Daenisch"), ConstType.GLEICH));
@@ -82,7 +82,7 @@ public class Einstein_Raetsel {
         graph.addConstraint(new BinaerConstraint(graph.getKnot("Wasser"), graph.getKnot("Malboro"), ConstType.NACHBAR));
         graph.addConstraint(new BinaerConstraint(graph.getKnot("Blau"), graph.getKnot("Norwegisch"), ConstType.NACHBAR));
 
-        graph.addConstraint(new BinaerConstraint(graph.getKnot("Weiss"), graph.getKnot("Gruen"), ConstType.RECHTERNACHBAR));
+        graph.addConstraint(new BinaerConstraint(graph.getKnot("Weiss"), graph.getKnot("Gruen"), ConstType.RECHTERNACHBAR));*/
 
 
         ArrayList<Knot> constr = new ArrayList<>();
