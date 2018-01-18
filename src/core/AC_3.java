@@ -63,7 +63,11 @@ public class AC_3 {
                         cleanList.add(con);
                     }
                 }
-                q = cleanList;
+                for (Constraint constr: cleanList) {
+                    if (!q.contains(constr)) {
+                        q.add(constr);
+                    }
+                }
                 consistent = vk.getWertebereich().size() > 0;
             }
 
